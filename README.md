@@ -3,5 +3,5 @@ This project implements a 7-layered symmetric encryption algorithm to encrypt pl
 
 # Contributors
 Daniel
-
+Arshith
 Menotored By: Likhith Kanigolla

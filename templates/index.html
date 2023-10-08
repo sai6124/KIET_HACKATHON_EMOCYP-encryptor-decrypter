@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emoji Encryption and Decryption</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-image: url('https://th.bing.com/th/id/OIP.dSb7HqTw2i1nkonSeaMq2AHaFW?w=250&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'); /* Add your background image path */
+            background-size: cover;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: white; /* Adjust text color */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .results-text {
+            color: white; /* Adjust text color */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-white">Emoji Encryption and Decryption</h1>
+    <form id="encryptForm">
+        <label for="plain_text">Enter text to encrypt:</label><br>
+        <input type="text" id="plain_text" name="plain_text" class="form-control"><br>
+        <button type="button" onclick="encrypt()" class="btn btn-primary">Encrypt</button>
+    </form>
+
+    <form id="decryptForm">
+        <label for="emojis_text">Enter emojis to decrypt:</label><br>
+        <input type="text" id="emojis_text" name="emojis_text" class="form-control"><br>
+        <button type="button" onclick="decrypt()" class="btn btn-primary">Decrypt</button>
+    </form>
+
+    <h2 class="text-white">Results:</h2>
+    <div id="results">
+        <p id="encrypted_text" class="results-text"></p>
+        <p id="decrypted_text" class="results-text"></p>
+    </div>
+
+    <script>
+        function encrypt() {
+            var plainText = document.getElementById('plain_text').value;
+            fetch('/encrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ plain_text: plainText })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('encrypted_text').innerText = 'Encrypted text in emojis: ' + data;
+            });
+        }
+
+        function decrypt() {
+            var emojisText = document.getElementById('emojis_text').value;
+            fetch('/decrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ emojis_text: emojisText })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('decrypted_text').innerText = 'Decrypted text: ' + data;
+            });
+        }
+    </script>
+</body>
+</html>
